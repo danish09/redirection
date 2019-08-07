@@ -1,0 +1,22 @@
+---
+
+  - hosts: all
+    become: true
+    gather_facts: no
+
+
+    tasks:
+
+      - name: install ansible prerequisites
+        script: ansible_prereqs.sh creates=/home/siddiq08/ansi/.ansible_prereqs_installed
+
+
+      #- name: Install python
+      #  raw: apt-get -y update && apt-get install -y python-minimal
+      #  when: check_python.rc != 0
+
+      - name: install nginx
+        apt:
+          name: nginx
+          state: latest
+          update_cache: yes

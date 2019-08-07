@@ -1,0 +1,35 @@
+---
+
+  - hosts: all
+    become: true
+    gather_facts: no
+
+
+    tasks:
+
+      - name: install ansible prerequisites
+        script: ansible_prereqs.sh creates=/home/siddiq08/ansi/.ansible_prereqs_installed
+
+
+      #- name: Install python
+      #  raw: apt-get -y update && apt-get install -y python-minimal
+      #  when: check_python.rc != 0
+
+
+      - name: download the key
+        apt_key:
+         url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+
+      - name: insert jenkins repository
+        
+        blockinfile:
+         path: /etc/apt/sources.list
+         block: |
+            These lines are added by blockinfile module
+
+      - name: install jenkins
+        
+        apt:
+          name: default-jdk
+          state: latest
+          update_cache: yes
